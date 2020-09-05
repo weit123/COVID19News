@@ -6,6 +6,7 @@ import org.json.*;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.List;
 
 class ListFetcher implements Runnable {
     private JSONObject jsonParam;
@@ -25,7 +26,7 @@ class ListFetcher implements Runnable {
         try {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
-                String id = obj.getString("id");
+                String id = obj.getString("_id");
                 id_list.add(id);
                 if (News.find(News.class, "id = ?", id).size() != 0)
                     continue;
@@ -65,7 +66,6 @@ class ListFetcher implements Runnable {
     @Override
     public void run() {
         try {
-            // sending data
             URL url = new URL("https://covid-dashboard.aminer.cn/api/events/list");
             DataOutputStream output;
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -108,6 +108,61 @@ public class NewsList {
     }
 
     public News getNews(String id) {
-        return News.find(News.class, "id = ?", id).get(0);
+        List<News> list = News.find(News.class, "id = ?", id);
+        if (list.size() != 0)
+            return list.get(0);
+        try {
+            URL url = new URL("https://covid-dashboard-api.aminer.cn/event/" + id);
+            DataOutputStream output;
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type","application/json");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == 200) {
+                Log.d("getList", "result succeed");
+                BufferedReader br=
+                        new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String response = br.readLine();
+                JSONObject obj = new JSONObject(response);
+                String content = obj.getString("content");
+                String time = obj.getString("time");
+                String title = obj.getString("title");
+                String seg = obj.getString("seg_test");
+                String _url = obj.getString("url");
+
+                String type = obj.getString("type");
+                if (type.equals("news")) {
+                    String source = obj.getString("source");
+                    News news = new News(type, id, source, _url, time, title, content, seg,
+                            null, null, null, null);
+                    news.save();
+                    return news;
+                }
+                else if (type.equals("paper")) {
+                    String doi = obj.getString("doi");
+                    String pdf = obj.getString("pdf");
+                    String year = obj.getString("year");
+                    ArrayList<String> authors = new ArrayList<String>();
+                    JSONArray tmp = obj.getJSONArray("authors");
+                    for (int j = 0; j < tmp.length(); j ++)
+                        authors.add(tmp.getJSONObject(j).getString("name"));
+                    News news = new News(type, id, null, _url, time, title, content, seg,
+                            pdf, authors, doi, year);
+                    news.save();
+                    return news;
+                }
+            } else {
+                Log.e("getNews", String.valueOf(responseCode));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
