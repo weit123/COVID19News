@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NewsLoadActivity"
+            android:label="加载新闻">
+
+        </activity>
 
         <meta-data android:name="DATABASE" android:value="covid19_news.db" />
         <meta-data android:name="VERSION" android:value="2" />
