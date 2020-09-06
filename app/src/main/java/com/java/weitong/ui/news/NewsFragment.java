@@ -40,9 +40,10 @@ public class NewsFragment extends Fragment {
         recyclerView.setLayoutManager(shabi);
 
         newsList = new NewsList();
-        ArrayList<String> kongyan = new ArrayList<String>();
-        kongyan.add("SB");
-        kongyan.add("caixukun");
+        ArrayList<String> kongyan = newsList.getList("'news'", 1);
+        System.out.println(NewsList.getNews(kongyan.get(0)).getTitle());
+//        kongyan.add("SB");
+//        kongyan.add("caixukun");
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
         return root;

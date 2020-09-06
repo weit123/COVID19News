@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class News extends SugarRecord {
     String type;
-    String id;
+    String _id;
     String content;
     String time;
     String title;
@@ -25,16 +25,16 @@ public class News extends SugarRecord {
                 String title, String content, String seg, String pdf,
                 String authors, String doi, String year) {
         this.type = type;
-        this.id = id;
+        this._id = id;
         this.source = source;
         this.url = url;
         this.time = time;
         this.title = title;
         this.content = content;
         this.keywords = "";
-        String[] words = seg.split(" ");
-        for (String word : words)
-            keywords = keywords + " " + word;
+//        String[] words = seg.split(" ");
+//        for (String word : words)
+//            keywords = keywords + " " + word;
         this.pdf = pdf;
         this.authors = authors;
         this.doi = doi;
