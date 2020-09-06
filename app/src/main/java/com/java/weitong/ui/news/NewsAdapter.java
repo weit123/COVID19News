@@ -10,14 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.java.weitong.db.News;
+
 import java.util.List;
+import java.util.*;
 
 import android.support.v7.widget.RecyclerView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private List<String> stringList;
-    public NewsAdapter(List<String> list) {
-        stringList = list;
+    private ArrayList<News> newsArray;
+    public NewsAdapter(ArrayList<News> list) {
+        newsArray = list;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,15 +44,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewholder, int index) {
-        String s = stringList.get(index);
-        viewholder.textView.setText(s);
-        Log.d("NewsAdapter", "Adhere the data" + s);
+        News curNews = newsArray.get(index);
+        viewholder.textView.setText(curNews.getTitle());
+        Log.d("NewsAdapter", "Adhere the data" + curNews.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        Log.d("NewsAdapter:", "Get Size: " + stringList.size());
-        return stringList.size();
+        Log.d("NewsAdapter:", "Get Size: " + newsArray.size());
+        return newsArray.size();
     }
 
 }

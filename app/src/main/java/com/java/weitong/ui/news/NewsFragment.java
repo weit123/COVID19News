@@ -20,6 +20,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import com.java.weitong.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +42,13 @@ public class NewsFragment extends Fragment {
 
         newsList = new NewsList();
         ArrayList<String> kongyan = newsList.getList("'news'", 1);
+        ArrayList<News> xubin = new ArrayList<News>();
+        for (String item:kongyan) {
+            xubin.add(newsList.getNews(item));
+        }
         System.out.println(NewsList.getNews(kongyan.get(0)).getTitle());
-//        kongyan.add("SB");
-//        kongyan.add("caixukun");
-        recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
+
+        recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
 
         return root;
     }
