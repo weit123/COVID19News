@@ -1,4 +1,9 @@
 package com.java.weitong.ui.news;
 
-public class NewsCard {
+import android.arch.lifecycle.ViewModel;
+
+public class NewsCard extends ViewModel {
+    private String news_data;
+
+
 }

@@ -40,4 +40,16 @@ public class News extends SugarRecord {
         this.doi = doi;
         this.year = year;
     }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getTime() {
+        return this.time;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
 }
