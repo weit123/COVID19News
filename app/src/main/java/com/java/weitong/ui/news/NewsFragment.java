@@ -43,6 +43,12 @@ public class NewsFragment extends Fragment {
         ArrayList<String> kongyan = new ArrayList<String>();
         kongyan.add("SB");
         kongyan.add("caixukun");
+        kongyan.add("nimasile");
+        kongyan.add("Rnimad");
+        kongyan.add("?????");
+        kongyan.add("sdofabo");
+        kongyan.add("cbhtql");
+
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
         return root;
