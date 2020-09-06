@@ -47,10 +47,10 @@ class ListFetcher implements Runnable {
                     String doi = obj.getString("doi");
                     String pdf = obj.getString("pdf");
                     String year = obj.getString("year");
-                    ArrayList<String> authors = new ArrayList<String>();
                     JSONArray tmp = obj.getJSONArray("authors");
+                    String authors = "";
                     for (int j = 0; j < tmp.length(); j ++)
-                        authors.add(tmp.getJSONObject(j).getString("name"));
+                        authors = authors + " " + tmp.getJSONObject(j).getString("name");
                     News news = new News(type, id, null, url, time, title, content, seg,
                             pdf, authors, doi, year);
                     news.save();
@@ -147,10 +147,10 @@ public class NewsList {
                     String doi = obj.getString("doi");
                     String pdf = obj.getString("pdf");
                     String year = obj.getString("year");
-                    ArrayList<String> authors = new ArrayList<String>();
                     JSONArray tmp = obj.getJSONArray("authors");
+                    String authors = "";
                     for (int j = 0; j < tmp.length(); j ++)
-                        authors.add(tmp.getJSONObject(j).getString("name"));
+                        authors = authors + " " + tmp.getJSONObject(j).getString("name");
                     News news = new News(type, id, null, _url, time, title, content, seg,
                             pdf, authors, doi, year);
                     news.save();
