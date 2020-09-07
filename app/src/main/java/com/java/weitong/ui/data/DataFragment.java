@@ -1,6 +1,13 @@
 package com.java.weitong.ui.data;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,33 +21,53 @@ import android.widget.Toast;
 import com.java.weitong.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DataFragment extends Fragment {
 
-    private DataAdapter dataAdapter;
-    private LinearLayoutManager shabi;
+    TabLayout mytab;
+    ViewPager mViewPager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_data, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.data_recycler);
-        shabi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+        super.onCreate(savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_datamain, container, false);
 
-        recyclerView.setLayoutManager(shabi);
+        mytab = root.findViewById(R.id.mytab);
+        mViewPager = root.findViewById(R.id.mViewPager);
 
-        ArrayList<String> xubin = new ArrayList<String>();
-        xubin.add("China");
-        xubin.add("India");
-        xubin.add("Japan");
-        dataAdapter = new DataAdapter(xubin);
-//        dataAdapter.setOnitemClickLintener(new DataAdapter.OnitemClick() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Log.d("!!!", "!!!");
-//            }
-//        });
-        recyclerView.setAdapter(dataAdapter);
+        String[] title = getResources().getStringArray(R.array.data_tab_name);
+        mViewPager.setAdapter(new MyFragmentPagerAdapter(getFragmentManager(), Arrays.asList(title)));
+        mytab.setupWithViewPager(mViewPager);
 
         return root;
+    }
+}
+
+class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+    private List<String> title;
+
+    public MyFragmentPagerAdapter(FragmentManager fm, List<String> title) {
+        super(fm);
+        this.title = title;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+//        if (position == 1) {
+//            return new InternationalFragment();
+//        }
+        return new DomesicFragment();
+    }
+
+    @Override
+    public int getCount() {
+        return title.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return title.get(position);
     }
 }

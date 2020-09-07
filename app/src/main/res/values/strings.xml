@@ -8,5 +8,14 @@
     <string name="menu_data">数据</string>
     <string name="menu_graph">图谱</string>
     <string name="menu_scholar">知疫</string>
-    <string name="dash">-</string>
+    <string-array
+        name="data_tab_name">
+        <item>国内疫情信息</item>
+        <item>国际疫情信息</item>
+    </string-array>
+    <string-array
+        name="domestic_region">
+        <item>北京</item>
+        <item>上海</item>
+    </string-array>
 </resources>
