@@ -20,7 +20,7 @@ import android.content.Intent;
 
 public class NewsLoadActivity extends AppCompatActivity {
     private  TextView newsTitle;
-    private TextView newsAuthor;
+    private TextView newsSource;
     private TextView newsContent;
     private TextView newsDate;
 
@@ -30,14 +30,15 @@ public class NewsLoadActivity extends AppCompatActivity {
         setContentView(R.layout.news_content);
         newsTitle = findViewById(R.id.news_title);
         newsContent = findViewById(R.id.news_content);
-        newsAuthor = findViewById(R.id.news_author);
+        newsSource = findViewById(R.id.news_source);
         newsDate = findViewById(R.id.news_date);
         Intent intent = getIntent();
         News curNews = (News)intent.getSerializableExtra("news");
         newsTitle.setText(curNews.getTitle());
         newsContent.setText(curNews.getContent());
         newsDate.setText(curNews.getTime());
-        newsAuthor.setText(curNews.getAuthors());
+        newsSource.setText(curNews.getSource());
+        System.out.println(curNews.getSource());
     }
 
 }

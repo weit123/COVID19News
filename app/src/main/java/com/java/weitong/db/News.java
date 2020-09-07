@@ -61,4 +61,32 @@ public class News extends SugarRecord implements Serializable {
     public String getContent() {
         return this.content;
     }
+
+    public String getSource() {
+        return this.source;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public String getPdf() {
+        return this.pdf;
+    }
+
+    public String getDoi() {
+        return this.doi;
+    }
+
+    public String getYear() {
+        return this.year;
+    }
+
+    public String getKeywords() {
+        return this.keywords;
+    }
+
+    public String getNewsId() {
+        return this._id;
+    }
 }

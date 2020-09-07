@@ -4,6 +4,7 @@ import com.java.weitong.MainActivity;
 import com.java.weitong.R;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import java.util.*;
 
 import android.support.v7.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private ArrayList<News> newsArray;
     private Context context;
@@ -31,11 +34,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
+        CardView cardview;
         public static int cnt = 0;
 
         public ViewHolder(View view) {
             super(view);
             textView = (TextView) view.findViewById(R.id.text_news);
+            cardview = (CardView) view.findViewById(R.id.news_card);
             cnt++;
             Log.d("NewsAdapter: ", "Load Class VidwHolder: " + cnt);
         }
@@ -56,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         viewholder.textView.setText(curNews.getTitle());
         final int info = index;
         context = view.getContext();
-        viewholder.textView.setOnClickListener(new View.OnClickListener() {
+        viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, NewsLoadActivity.class);
@@ -73,6 +78,4 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         Log.d("NewsAdapter:", "Get Size: " + newsArray.size());
         return newsArray.size();
     }
-
-
 }
