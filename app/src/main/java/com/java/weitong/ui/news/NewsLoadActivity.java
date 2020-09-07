@@ -13,6 +13,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.java.weitong.R;
+import com.java.weitong.db.News;
+
+import android.content.Intent;
 
 
 public class NewsLoadActivity extends AppCompatActivity {
@@ -29,6 +32,12 @@ public class NewsLoadActivity extends AppCompatActivity {
         newsContent = findViewById(R.id.news_content);
         newsAuthor = findViewById(R.id.news_author);
         newsDate = findViewById(R.id.news_date);
-        
+        Intent intent = getIntent();
+        News curNews = (News)intent.getSerializableExtra("news");
+        newsTitle.setText(curNews.getTitle());
+        newsContent.setText(curNews.getContent());
+        newsDate.setText(curNews.getTime());
+        newsAuthor.setText(curNews.getAuthors());
     }
+
 }

@@ -2,9 +2,10 @@ package com.java.weitong.db;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class News extends SugarRecord {
+public class News extends SugarRecord implements Serializable {
     String type;
     String _id;
     String content;
@@ -51,5 +52,13 @@ public class News extends SugarRecord {
 
     public String getUrl() {
         return this.url;
+    }
+
+    public String getAuthors() {
+        return this.authors;
+    }
+
+    public String getContent() {
+        return this.content;
     }
 }

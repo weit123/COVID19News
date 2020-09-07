@@ -6,9 +6,13 @@ import com.java.weitong.db.*;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+
 import android.view.View;
+import android.content.Intent;
+
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,6 +33,8 @@ public class NewsFragment extends Fragment {
     private NewsAdapter newsAdapter;
     private LinearLayoutManager shabi;
     private NewsList newsList;
+    private ArrayList<String> kongyan;
+    private ArrayList<News> xubin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,8 +46,8 @@ public class NewsFragment extends Fragment {
         recyclerView.setLayoutManager(shabi);
 
         newsList = new NewsList();
-        ArrayList<String> kongyan = newsList.getList("'news'", 1);
-        ArrayList<News> xubin = new ArrayList<News>();
+        kongyan = newsList.getList("'news'", 1);
+        xubin = new ArrayList<News>();
         for (String item:kongyan) {
             xubin.add(newsList.getNews(item));
         }
@@ -51,6 +57,7 @@ public class NewsFragment extends Fragment {
 
         return root;
     }
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.java.weitong.ui.news;
 
+import com.java.weitong.MainActivity;
 import com.java.weitong.R;
 
 import android.support.annotation.NonNull;
@@ -9,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.content.Intent;
+import android.content.Context;
 import com.java.weitong.db.News;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 import java.util.*;
@@ -19,6 +22,8 @@ import android.support.v7.widget.RecyclerView;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private ArrayList<News> newsArray;
+    private Context context;
+
     public NewsAdapter(ArrayList<News> list) {
         newsArray = list;
     }
@@ -46,6 +51,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewholder, int index) {
         News curNews = newsArray.get(index);
         viewholder.textView.setText(curNews.getTitle());
+        final int info = index;
+        viewholder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NewsLoadActivity.class);
+                intent.putExtra("news", info);
+                context.startActivity(intent);
+            }
+        } );
+
         Log.d("NewsAdapter", "Adhere the data" + curNews.getTitle());
     }
 
@@ -54,5 +69,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         Log.d("NewsAdapter:", "Get Size: " + newsArray.size());
         return newsArray.size();
     }
+
 
 }
