@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.java.weitong.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InternationalFragment extends Fragment {
     private DataAdapter dataAdapter;
@@ -26,12 +27,12 @@ public class InternationalFragment extends Fragment {
 
         recyclerView.setLayoutManager(shabi);
 
-        ArrayList<String> xubin = new ArrayList<String>();
-        xubin.add("中国"); xubin.add("美国"); xubin.add("巴西"); xubin.add("印度"); xubin.add("英国");
-        xubin.add("俄罗斯"); xubin.add("孟加拉国"); xubin.add("秘鲁"); xubin.add("墨西哥"); xubin.add("秘鲁");
-        xubin.add("西班牙"); xubin.add("巴基斯坦"); xubin.add("阿根廷"); xubin.add("埃及"); xubin.add("沙特阿拉伯");
+        String[] countries = getResources().getStringArray(R.array.nation_list);
+        ArrayList<String> region = new ArrayList<String>(Arrays.asList(countries));
+        String[] country_codes = getResources().getStringArray(R.array.nation_code);
+        ArrayList<String> codes = new ArrayList<String>(Arrays.asList(country_codes));
 
-        dataAdapter = new DataAdapter(xubin);
+        dataAdapter = new DataAdapter(region,codes);
 //        dataAdapter.setOnitemClickLintener(new DataAdapter.OnitemClick() {
 //            @Override
 //            public void onItemClick(int position) {

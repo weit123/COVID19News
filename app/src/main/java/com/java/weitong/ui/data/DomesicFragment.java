@@ -28,8 +28,10 @@ public class DomesicFragment extends Fragment {
         recyclerView.setLayoutManager(shabi);
         String[] cities = getResources().getStringArray(R.array.domestic_region);
         ArrayList<String> xubin = new ArrayList<String>(Arrays.asList(cities));
+        String[] city_codes = getResources().getStringArray(R.array.domestic_code);
+        ArrayList<String> codes = new ArrayList<String>(Arrays.asList(city_codes));
 
-        dataAdapter = new DataAdapter(xubin);
+        dataAdapter = new DataAdapter(xubin, codes);
 //        dataAdapter.setOnitemClickLintener(new DataAdapter.OnitemClick() {
 //            @Override
 //            public void onItemClick(int position) {

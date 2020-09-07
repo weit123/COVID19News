@@ -28,6 +28,7 @@ public class DataDisplayActivity extends AppCompatActivity {
             ColorTemplate.VORDIPLOM_COLORS[2]
     };
     private String region;
+    private String display_region;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class DataDisplayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         region = intent.getStringExtra("region");
+        display_region = intent.getStringExtra("display");
 
         chart = findViewById(R.id.chart1);
 
@@ -87,7 +89,6 @@ public class DataDisplayActivity extends AppCompatActivity {
         int color = colors[0];
         d.setColor(color);
         d.setCircleColor(color);
-        d.setDrawValues(false);
         dataSets.add(d);
 
         d = new LineDataSet(cured_data, "治愈数");
@@ -108,7 +109,7 @@ public class DataDisplayActivity extends AppCompatActivity {
         chart.invalidate();
 
         TextView text = findViewById(R.id.begin_text);
-        String display = "疫情开始于：" + epidata.getBegin();
+        String display = display_region + ":   疫情开始于：" + epidata.getBegin();
         text.setText(display);
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -45,7 +46,7 @@ public class DataFragment extends Fragment {
     }
 }
 
-class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
     private List<String> title;
 
     public MyFragmentPagerAdapter(FragmentManager fm, List<String> title) {
@@ -55,9 +56,9 @@ class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-//        if (position == 1) {
-//            return new InternationalFragment();
-//        }
+        if (position == 1) {
+            return new InternationalFragment();
+        }
         return new DomesicFragment();
     }
 

@@ -16,14 +16,19 @@ import com.java.weitong.db.News;
 import com.java.weitong.ui.news.NewsLoadActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<String> menuList;
+    private ArrayList<String> codeList;
     private Context context;
     private View view;
 
-    public DataAdapter(ArrayList<String> list) {
-        menuList = list;
+    public DataAdapter(ArrayList<String> menulist, ArrayList<String> codelist) {
+        menuList = menulist;
+        codeList = codelist;
+//        this.codeList = Arrays.asList(context.getResources().getStringArray(R.array.domestic_code));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -50,13 +55,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewholder, final int index) {
         final String reg = menuList.get(index);
+        final String code = codeList.get(index);
         viewholder.textView.setText(reg);
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DataDisplayActivity.class);
-                intent.putExtra("region", "China");
+                intent.putExtra("region", code);
+                intent.putExtra("display", reg);
                 context.startActivity(intent);
             }
         } );
