@@ -14,6 +14,7 @@
         android:padding="1dp">
     </android.support.v7.widget.RecyclerView>
     <android.support.v7.widget.CardView
+        android:id="@+id/data_card"
         android:layout_width="380dp"
         android:layout_height="100dp"
         android:layout_marginTop="3dp"
@@ -27,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/text_news"
+                android:id="@+id/text_data"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"

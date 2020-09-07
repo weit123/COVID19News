@@ -116,7 +116,7 @@ class NewsFetcher implements Runnable {
             String type = obj.getString("type");
             if (type.equals("news")) {
                 String source = obj.getString("source");
-                news = new News(type, id, source, url, time, title, content, null,
+                news = new News(type, id, source, url, time, title, content, seg,
                         null, null, null, null);
             }
             else if (type.equals("paper")) {
@@ -127,7 +127,7 @@ class NewsFetcher implements Runnable {
                 String authors = "";
                 for (int j = 0; j < tmp.length(); j ++)
                     authors = authors + " " + tmp.getJSONObject(j).getString("name");
-                news = new News(type, id, null, url, time, title, content, null,
+                news = new News(type, id, null, url, time, title, content, seg,
                         pdf, authors, doi, year);
             }
         } catch (JSONException e) {

@@ -33,9 +33,11 @@ public class News extends SugarRecord implements Serializable {
         this.title = title;
         this.content = content;
         this.keywords = "";
-//        String[] words = seg.split(" ");
-//        for (String word : words)
-//            keywords = keywords + " " + word;
+        if (seg != null) {
+            String[] words = seg.split(" ");
+            for (String word : words)
+                keywords = keywords + " " + word;
+        }
         this.pdf = pdf;
         this.authors = authors;
         this.doi = doi;

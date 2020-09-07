@@ -21,6 +21,7 @@ public class StartupActivity extends AppCompatActivity {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {
                 startActivity(new Intent(StartupActivity.this, MainActivity.class));
+                finish();
             }
         }
     };
