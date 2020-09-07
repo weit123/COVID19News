@@ -1,5 +1,6 @@
 package com.java.weitong.ui.data;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -10,6 +11,9 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.java.weitong.R;
+import com.java.weitong.db.EpidemicData;
+import com.java.weitong.db.EpidemicDataList;
+import com.java.weitong.db.News;
 
 import java.util.ArrayList;
 
@@ -17,15 +21,19 @@ public class DataDisplayActivity extends AppCompatActivity {
 
     private LineChart chart;
     private final int[] colors = new int[] {
-            ColorTemplate.VORDIPLOM_COLORS[0],
             ColorTemplate.VORDIPLOM_COLORS[1],
+            ColorTemplate.VORDIPLOM_COLORS[0],
             ColorTemplate.VORDIPLOM_COLORS[2]
     };
+    private String region;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.data_display);
+
+        Intent intent = getIntent();
+        region = intent.getStringExtra("region");
 
         chart = findViewById(R.id.chart1);
 
@@ -57,26 +65,41 @@ public class DataDisplayActivity extends AppCompatActivity {
 //        l.setOrientation(Legend.LegendOrientation.VERTICAL);
 //        l.setDrawInside(false);
 
+        EpidemicData epidata = EpidemicDataList.getData(region);
+
+
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
-        for (int z = 0; z < 3; z++) {
-
-            ArrayList<Entry> values = new ArrayList<>();
-
-            for (int i = 0; i < 3; i++) {
-                values.add(new Entry(i, (float) Math.random()));
-            }
-
-            LineDataSet d = new LineDataSet(values, "DataSet " + (z + 1));
-            d.setLineWidth(2.5f);
-            d.setCircleRadius(4f);
-
-            int color = colors[z];
-            d.setColor(color);
-            d.setCircleColor(color);
-            d.setDrawValues(false);
-            dataSets.add(d);
+        ArrayList<Entry> confirm_data = new ArrayList<>();
+        ArrayList<Entry> cured_data = new ArrayList<>();
+        ArrayList<Entry> dead_data = new ArrayList<>();
+        for (int i = 0; i < epidata.getConfirmed().size(); i ++) {
+            confirm_data.add(new Entry(i, epidata.getConfirmed().get(i)));
+            cured_data.add(new Entry(i, epidata.getCured().get(i)));
+            dead_data.add(new Entry(i, epidata.getDead().get(i)));
         }
+
+        LineDataSet d = new LineDataSet(confirm_data, "确诊数");
+        d.setLineWidth(2.5f);
+        d.setCircleRadius(4f);
+        int color = colors[0];
+        d.setColor(color);
+        d.setCircleColor(color);
+        d.setDrawValues(false);
+        dataSets.add(d);
+
+        d = new LineDataSet(cured_data, "治愈数");
+        color = colors[1];
+        d.setColor(color);
+        d.setCircleColor(color);
+        dataSets.add(d);
+
+        d = new LineDataSet(dead_data, "死亡数");
+        color = colors[2];
+        d.setColor(color);
+        d.setCircleColor(color);
+        dataSets.add(d);
+
 
         LineData data = new LineData(dataSets);
         chart.setData(data);

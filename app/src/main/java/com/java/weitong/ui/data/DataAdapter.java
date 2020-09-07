@@ -1,5 +1,7 @@
 package com.java.weitong.ui.data;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,11 +12,14 @@ import android.widget.TextView;
 
 import com.java.weitong.R;
 import com.java.weitong.db.News;
+import com.java.weitong.ui.news.NewsLoadActivity;
 
 import java.util.ArrayList;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<String> menuList;
+    private Context context;
+    private View view;
 
     public DataAdapter(ArrayList<String> list) {
         menuList = list;
@@ -34,14 +39,24 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,  int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_data, null, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_data, null, false);
         Log.d("Data", "Fix Layour");
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewholder, int index) {
-        viewholder.textView.setText(menuList.get(index));
+    public void onBindViewHolder(@NonNull ViewHolder viewholder, final int index) {
+        final String reg = menuList.get(index);
+        viewholder.textView.setText(reg);
+        context = view.getContext();
+        viewholder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DataDisplayActivity.class);
+                intent.putExtra("region", "China|Hong Kong");
+                context.startActivity(intent);
+            }
+        } );
     }
 
     @Override
