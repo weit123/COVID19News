@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.java.weitong.R;
 import com.java.weitong.db.News;
 
 import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 
 
 public class NewsLoadActivity extends AppCompatActivity {
@@ -23,21 +25,28 @@ public class NewsLoadActivity extends AppCompatActivity {
     private TextView newsSource;
     private TextView newsContent;
     private TextView newsDate;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_content);
+        setContentView(R.layout.detail_news);
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         newsTitle = findViewById(R.id.news_title);
         newsContent = findViewById(R.id.news_content);
         newsSource = findViewById(R.id.news_source);
-        newsDate = findViewById(R.id.news_date);
+        newsDate = findViewById(R.id.news_time);
         Intent intent = getIntent();
         News curNews = (News)intent.getSerializableExtra("news");
         newsTitle.setText(curNews.getTitle());
         newsContent.setText(curNews.getContent());
         newsDate.setText(curNews.getTime());
         newsSource.setText(curNews.getSource());
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
@@ -63,6 +72,14 @@ public class NewsLoadActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
 //                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
