@@ -15,7 +15,7 @@
         android:id="@+id/navigation_data"
         android:name="com.java.weitong.ui.data.DataFragment"
         android:label="@string/title_data"
-        tools:layout="@layout/fragment_data" />
+        tools:layout="@layout/data_display" />
 
     <fragment
         android:id="@+id/navigation_graph"

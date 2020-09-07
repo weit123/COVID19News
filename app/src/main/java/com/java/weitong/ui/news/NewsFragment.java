@@ -51,7 +51,6 @@ public class NewsFragment extends Fragment {
         for (String item:kongyan) {
             xubin.add(newsList.getNews(item));
         }
-        System.out.println(NewsList.getNews(kongyan.get(0)).getTitle());
 
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
 
