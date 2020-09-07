@@ -26,7 +26,6 @@ import java.util.List;
 
 public class NewsFragment extends Fragment {
 
-    private NewsViewModel newsViewModel;
     private NewsAdapter newsAdapter;
     private LinearLayoutManager shabi;
     private NewsList newsList;

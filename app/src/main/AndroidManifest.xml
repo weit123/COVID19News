@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewsLoadActivity"
+            android:name=".ui.news.NewsLoadActivity"
             android:label="加载新闻">
         </activity>
         <activity

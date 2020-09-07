@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.java.weitong.R;
-import com.java.weitong.ui.news.NewsViewModel;
 
 public class ScholarFragment extends Fragment {
 
