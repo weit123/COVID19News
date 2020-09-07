@@ -30,6 +30,5 @@ public class StartupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
         handler.sendEmptyMessageDelayed(0, 1000);
-
     }
 }
