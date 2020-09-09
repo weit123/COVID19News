@@ -1,5 +1,7 @@
 package com.java.weitong.ui.news;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -15,10 +17,23 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.java.weitong.R;
 import com.java.weitong.db.News;
+import android.view.Menu;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
+import com.java.weitong.R;
+import com.sina.weibo.sdk.api.MultiImageObject;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.VideoSourceObject;
+import com.sina.weibo.sdk.api.WebpageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.common.UiError;
+import com.sina.weibo.sdk.openapi.IWBAPI;
+import com.sina.weibo.sdk.openapi.WBAPIFactory;
+import com.sina.weibo.sdk.share.WbShareCallback;
 
 public class NewsLoadActivity extends AppCompatActivity {
     private  TextView newsTitle;
@@ -75,9 +90,29 @@ public class NewsLoadActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.news_content_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+////            case android.R.id.home:
+////                finish();
+////                break;
+////        }
         if (item.getItemId() == android.R.id.home) {
             finish();
+        } else if (item.getItemId() == R.id.share) {
+            //
+            Toast.makeText(this, "分享至微博", Toast.LENGTH_LONG).show();
+//            Context context = getConte
+            Context context = this;
+            Intent intent = new Intent(this, ShareActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.menu4) {
+            // refresh
         }
         return super.onOptionsItemSelected(item);
     }

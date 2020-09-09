@@ -3,6 +3,7 @@
     package="com.java.weitong">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,6 +29,10 @@
         <activity
             android:name=".ui.data.DataDisplayActivity"
             android:label="加载数据图表">
+        </activity>
+        <activity
+            android:name=".ui.news.ShareActivity"
+            android:label="分享页面">
         </activity>
         <activity
             android:name=".MainActivity"

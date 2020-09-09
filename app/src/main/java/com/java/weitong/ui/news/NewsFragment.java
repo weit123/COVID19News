@@ -4,6 +4,7 @@ import com.java.weitong.MainActivity;
 import com.java.weitong.db.*;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.content.Intent;
 
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,11 +37,13 @@ public class NewsFragment extends Fragment {
     private NewsList newsList;
     private ArrayList<String> kongyan;
     private ArrayList<News> xubin;
+    private SwipeRefreshLayout refreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+//        refreshLayout = root.findViewById(R.id.refresh_layout);
         shabi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         System.out.println(getContext().getClass());
 
