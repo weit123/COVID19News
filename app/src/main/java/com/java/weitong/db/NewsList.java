@@ -194,4 +194,16 @@ public class NewsList {
         }
         return fetcher.news;
     }
+
+    public static ArrayList<String> getSearchResult(String key) {
+        ArrayList<String> res = new ArrayList<>();
+        List<News> newslist = News.listAll(News.class);
+        for (int i = newslist.size() - 1; i >= 0; i --) {
+            News n = newslist.get(i);
+            if (n.getTitle().contains(key)) {
+                res.add(n.getNewsId());
+            }
+        }
+        return res;
+    }
 }
