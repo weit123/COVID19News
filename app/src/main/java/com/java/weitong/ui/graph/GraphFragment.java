@@ -18,9 +18,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.java.weitong.R;
-import com.java.weitong.db.History;
 import com.java.weitong.db.News;
 import com.java.weitong.db.NewsList;
+import com.java.weitong.db.PicFetcher;
 import com.java.weitong.ui.news.NewsAdapter;
 
 import org.json.JSONArray;
@@ -217,6 +217,7 @@ class EntityFetcher implements Runnable {
     }
 }
 
+/*
 class PicFetcher implements Runnable {
     public Bitmap bitmap;
     private String picurl;
@@ -239,3 +240,5 @@ class PicFetcher implements Runnable {
         }
     }
 }
+
+ */

@@ -1,13 +1,15 @@
 package com.java.weitong.db;
 
+import android.graphics.Bitmap;
+
 import com.orm.SugarRecord;
 
 import java.util.ArrayList;
 
 public class ScholarData extends SugarRecord {
-    String id;
+    String _id;
     String name;
-    String avatar_url;
+    Bitmap avatar;
     int gindex;
     int hindex;
     int citation;
@@ -29,13 +31,13 @@ public class ScholarData extends SugarRecord {
 
     public ScholarData() {}
 
-    public ScholarData(String id, String name, String avatar_url, int gindex, int hindex, int citation, double activity,
+    public ScholarData(String id, String name, Bitmap avatar, int gindex, int hindex, int citation, double activity,
                        double newStar, int pubs, double social, double diversity, boolean is_passedaway,
                         String affiliation, String bio, String edu, String tags, String email, String homepage,
                         String position, String phone, String work) {
-        this.id = id;
+        this._id = id;
         this.name = name;
-        this.avatar_url = avatar_url;
+        this.avatar = avatar;
         this.gindex = gindex;
         this.hindex = hindex;
         this.citation = citation;

@@ -28,6 +28,9 @@ class ScholarFetcher implements Runnable {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
                 String id = obj.getString("id");
+                if (ScholarData.find(ScholarData.class, "_id = ?", id).size() != 0) {
+                    continue;
+                }
                 boolean is_passed_away = obj.getBoolean("is_passedaway");
                 if (is_passed_away)
                     dead.add(id);
@@ -37,6 +40,10 @@ class ScholarFetcher implements Runnable {
                     continue;
                 String name = obj.getString("name_zh") + obj.getString("name");
                 String avatar_url = obj.getString("avatar");
+                PicFetcher fetcher = new PicFetcher(avatar_url);
+                Thread t = new Thread(fetcher);
+                t.start();
+                t.join();
                 JSONObject tmp = obj.getJSONObject("indices");
                 int gindex = tmp.getInt("gindex");
                 int hindex = tmp.getInt("hindex");
@@ -48,24 +55,40 @@ class ScholarFetcher implements Runnable {
                 double diversity = tmp.getDouble("diversity");
                 tmp = obj.getJSONObject("profile");
                 String affiliation = tmp.getString("affiliation");
-                String bio = tmp.getString("bio");
-                String edu = tmp.getString("edu");
-                String email = tmp.getString("email");
-                String homepage = tmp.getString("homepage");
-                String phone = tmp.getString("phone");
-                String position = tmp.getString("position");
-                String work = tmp.getString("work");
+                String bio = "无";
+                if (tmp.has("bio"))
+                    bio = tmp.getString("bio");
+                String edu = "无";
+                if (tmp.has("edu"))
+                    edu = tmp.getString("edu");
+                String email = "无";
+                if (tmp.has("email"))
+                    email = tmp.getString("email");
+                String homepage = "无";
+                if (tmp.has("homepage"))
+                    homepage = tmp.getString("homepage");
+                String phone = "无";
+                if (tmp.has("phone"))
+                    phone = tmp.getString("phone");
+                String position = "无";
+                if (tmp.has("position"))
+                    position = tmp.getString("position");
+                String work = "";
+                if (tmp.has("work"))
+                    work = tmp.getString("work");
                 String tag = "";
-                JSONArray arr = obj.getJSONArray("tags");
-                for (int j = 0; j < arr.length(); j ++)
-                    tag += (String) arr.get(j);
+                if (obj.has("tags")) {
+                    JSONArray arr = obj.getJSONArray("tags");
+                    for (int j = 0; j < arr.length(); j++)
+                        tag += (String) arr.get(j);
+                }
 
-                ScholarData data = new ScholarData(id, name, avatar_url, gindex, hindex,
+                ScholarData data = new ScholarData(id, name, fetcher.bitmap, gindex, hindex,
                         citation, activity, newStar, pubs, social, diversity, is_passed_away,
                         affiliation, bio, edu, tag, email, homepage, position, phone, work);
                 data.save();
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -114,12 +137,16 @@ public class ScholarList {
                 ScholarFetcher.class.wait();
             } catch (InterruptedException e) { e.printStackTrace(); }
         }
+        Log.e("alive", alive.toString());
+        Log.e("dead", dead.toString());
     }
 
     public static ScholarData getScholar(String id) {
-        List<ScholarData> scho = ScholarData.find(ScholarData.class, "id = ?", id);
-        if (scho.size() == 0)
+        List<ScholarData> scho = ScholarData.find(ScholarData.class, "_id = ?", id);
+        if (scho.size() == 0) {
+            Log.e("getScholar", "NOT FOUND");
             return null;
+        }
         return scho.get(0);
     }
 }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.java.weitong.R;
+import com.java.weitong.db.ScholarList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ScholarFragment extends Fragment {
 
     TabLayout mytab;
     ViewPager mViewPager;
+    ScholarList scholarList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class ScholarFragment extends Fragment {
         String[] title = getResources().getStringArray(R.array.scholar_tab_name);
         mViewPager.setAdapter(new ScholarFragmentPagerAdapter(getFragmentManager(), Arrays.asList(title)));
         mytab.setupWithViewPager(mViewPager);
+
+        scholarList = new ScholarList();
 
         return root;
     }
