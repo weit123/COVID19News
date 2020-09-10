@@ -206,4 +206,11 @@ public class NewsList {
         }
         return res;
     }
+
+    public static void readNews(String id) {
+        List<News> news = News.find(News.class, "_id = ?", id);
+        if (news.size() == 0)
+            return;
+        news.get(0).readNews();
+    }
 }
