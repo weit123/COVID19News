@@ -11,6 +11,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // 设置支持S0的架构
+            abiFilters 'armeabi' //, 'armeabi-v7a','arm64-v8a' }
+        }
+
     }
 
     buildTypes {
@@ -35,4 +41,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    implementation 'com.sina.weibo.sdk:core:9.12.0:openDefaultRelease@aar'
 }
