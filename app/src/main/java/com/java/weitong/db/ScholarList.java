@@ -101,8 +101,8 @@ class ScholarFetcher implements Runnable {
 }
 
 public class ScholarList {
-    public ArrayList<String> alive;
-    public ArrayList<String> dead;
+    public static ArrayList<String> alive;
+    public static ArrayList<String> dead;
     public ScholarList() {
         alive = new ArrayList<>();
         dead = new ArrayList<>();

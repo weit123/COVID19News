@@ -39,6 +39,7 @@ public class DataFragment extends Fragment {
         mViewPager = root.findViewById(R.id.mViewPager);
 
         String[] title = getResources().getStringArray(R.array.data_tab_name);
+        Log.e("lqq", "xxbb" + title);
         mViewPager.setAdapter(new MyFragmentPagerAdapter(getFragmentManager(), Arrays.asList(title)));
         mytab.setupWithViewPager(mViewPager);
 
@@ -51,6 +52,7 @@ class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     public MyFragmentPagerAdapter(FragmentManager fm, List<String> title) {
         super(fm);
+
         this.title = title;
     }
 

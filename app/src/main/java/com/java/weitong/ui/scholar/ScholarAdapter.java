@@ -13,21 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.java.weitong.R;
+import com.java.weitong.db.ScholarData;
+import com.java.weitong.db.ScholarList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHolder3> {
-    private ArrayList<String> menuList;
-    private ArrayList<String> codeList;
+    private ArrayList<String> scholarIdList;
     private Context context;
     private View view;
 
-    public ScholarAdapter(ArrayList<String> menulist, ArrayList<String> codelist) {
-        menuList = menulist;
-        codeList = codelist;
-//        this.codeList = Arrays.asList(context.getResources().getStringArray(R.array.domestic_code));
+    public ScholarAdapter(ArrayList<String> idList) {
+        this.scholarIdList = idList;
     }
 
     static class ViewHolder3 extends RecyclerView.ViewHolder {
@@ -55,21 +54,18 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder3 viewholder, final int index) {
-        final String reg = menuList.get(index);
-        System.out.println(reg);
-        final String code = codeList.get(index);
-        System.out.println(code);
+        final String scholarId = scholarIdList.get(index);
+        ScholarData scholarData = ScholarList.getScholar(scholarId);
         if (viewholder.imageView == null) {
             System.out.println("2333333");
         }
-        viewholder.textView.setText(reg);
+        viewholder.textView.setText(scholarData.getName());
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ScholarDisplayActivity.class);
-                intent.putExtra("region", code);
-                intent.putExtra("display", reg);
+//                intent.putExtra("scholarId", scholarId);
                 context.startActivity(intent);
             }
         } );
@@ -77,7 +73,10 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return menuList.size();
+        if (scholarIdList == null) {
+            return 0;
+        }
+        return scholarIdList.size();
     }
 
 }

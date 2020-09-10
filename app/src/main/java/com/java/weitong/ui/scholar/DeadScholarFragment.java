@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.java.weitong.R;
+import com.java.weitong.db.ScholarList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,12 +27,10 @@ public class DeadScholarFragment extends Fragment {
         shabi = new GridLayoutManager(getContext(), 2);
 
         recyclerView.setLayoutManager(shabi);
-        String[] cities = getResources().getStringArray(R.array.domestic_region);
-        ArrayList<String> xubin = new ArrayList<String>(Arrays.asList(cities));
-        String[] city_codes = getResources().getStringArray(R.array.domestic_code);
-        ArrayList<String> codes = new ArrayList<String>(Arrays.asList(city_codes));
 
-        scholarAdapter = new ScholarAdapter(xubin, codes);
+        ArrayList<String> deads =  ScholarList.dead;
+
+        scholarAdapter = new ScholarAdapter(deads);
 
         recyclerView.setAdapter(scholarAdapter);
 

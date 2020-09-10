@@ -55,4 +55,8 @@ public class ScholarData extends SugarRecord {
         this.work = work;
         this.email = email;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }
