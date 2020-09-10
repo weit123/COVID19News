@@ -21,6 +21,8 @@ public class News extends SugarRecord implements Serializable {
     String doi;
     String year;
 
+    boolean read;
+
     public News() {}
     public News(String type, String id, String source, String url, String time,
                 String title, String content, String seg, String pdf,
@@ -42,6 +44,7 @@ public class News extends SugarRecord implements Serializable {
         this.authors = authors;
         this.doi = doi;
         this.year = year;
+        this.read = false;
     }
 
     public String getTitle() {
@@ -90,5 +93,13 @@ public class News extends SugarRecord implements Serializable {
 
     public String getNewsId() {
         return this._id;
+    }
+
+    public boolean getRead() {
+        return this.read;
+    }
+
+    public void readNews() {
+        this.read = true;
     }
 }
