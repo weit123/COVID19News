@@ -102,46 +102,11 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
         WeiboMultiMessage message = new WeiboMultiMessage();
 
         TextObject textObject = new TextObject();
-        String text = "我正在使用微博客户端发博器分享文字。";
-
-        // 分享文字
-//        if (mShareText.isChecked()) {
-            text = "这里设置您要分享的内容！";
-            textObject.text = text;
-            message.textObject = textObject;
-//        }
-
-        /*
-        // 分享网页
-        if (mShareUrl.isChecked()) {
-            WebpageObject webObject = new WebpageObject();
-            webObject.identify = UUID.randomUUID().toString();
-            webObject.title = "标题";
-            webObject.description = "描述";
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_logo);
-            ByteArrayOutputStream os = null;
-            try {
-                os = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 85, os);
-                webObject.thumbData = os.toByteArray();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (os != null) {
-                        os.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            webObject.actionUrl = "https://weibo.com";
-            webObject.defaultText = "分享网页";
-            message.mediaObject = webObject;
-        }
-         */
-
-//        mWBAPI.shareMessage(message, mShareClientOnly.isChecked());
+        String text;
+        Intent intent = getIntent();
+        text = intent.getStringExtra("text");
+        textObject.text = text;
+        message.textObject = textObject;
         mWBAPI.shareMessage(message, false);
     }
 
