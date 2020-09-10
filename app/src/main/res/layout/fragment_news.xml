@@ -6,52 +6,30 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="1dp">
-    </android.support.v7.widget.RecyclerView>
-    <android.support.v7.widget.CardView
-        android:id="@+id/news_card"
-        android:layout_width="380dp"
-        android:layout_height="180dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_gravity="center_horizontal"
-        app:cardCornerRadius="5dp"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        >
-        <RelativeLayout
+        android:layout_height="wrap_content"
+        android:id="@+id/refresh_layout">
+        <com.scwang.smart.refresh.header.MaterialHeader
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/picture">
-            </ImageView>
-            <TextView
-                android:id="@+id/text_news"
-                android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:layout_marginStart="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
-                android:gravity="center_vertical"
-                android:includeFontPadding="false"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+            android:layout_height="wrap_content">
+
+        </com.scwang.smart.refresh.header.MaterialHeader>
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="1dp">
+        </android.support.v7.widget.RecyclerView>
+        <com.scwang.smart.refresh.footer.BallPulseFooter
+            android:id="@+id/foot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.scwang.smart.refresh.footer.BallPulseFooter>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

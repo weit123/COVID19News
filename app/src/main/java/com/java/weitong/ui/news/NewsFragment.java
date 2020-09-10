@@ -25,6 +25,9 @@ import android.support.v4.app.Fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import com.java.weitong.R;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -59,18 +62,23 @@ public class NewsFragment extends Fragment {
         }
 
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
-            @Override
-            public void onLoadMore() {
-                newsAdapter.setLoadState(newsAdapter.LOADING);
 
-                kongyan = newsList.getList("'news'", 1);
-                for (String item : kongyan) {
-                    xubin.add(newsList.getNews(item));
-                }
-                newsAdapter.setLoadState(newsAdapter.LOADING_COMPLETE);
+        final RefreshLayout refreshLayout = (RefreshLayout) root.findViewById(R.id.refresh_layout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                //mViewModel.getNews(true,10,0x3f3f3f3f,0);
+                refreshLayout.finishRefresh(1500);
             }
         });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(1500);
+            }
+        });
+
+
         return root;
     }
 
