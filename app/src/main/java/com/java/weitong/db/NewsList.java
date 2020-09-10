@@ -181,7 +181,7 @@ public class NewsList {
     public static News getNews(String id) {
         List<News> tmp = News.find(News.class, "_id = ?", id);
         if (tmp.size() != 0) {
-            Log.e("findnews", "Found!");
+//            Log.e("findnews", "Found!");
             return tmp.get(0);
         }
         NewsFetcher fetcher = new NewsFetcher(id);
@@ -209,8 +209,12 @@ public class NewsList {
 
     public static void readNews(String id) {
         List<News> news = News.find(News.class, "_id = ?", id);
-        if (news.size() == 0)
+        if (news.size() == 0) {
+            Log.e("Read news error", "NEWS NOT FOUND");
             return;
+        }
+        System.out.println(news.get(0).getTitle() + news.get(0).getNewsId());
+        Log.e("end of read", "rt");
         news.get(0).readNews();
     }
 }

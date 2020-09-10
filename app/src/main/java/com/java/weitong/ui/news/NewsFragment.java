@@ -3,11 +3,13 @@ package com.java.weitong.ui.news;
 import com.java.weitong.MainActivity;
 import com.java.weitong.db.*;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.content.Intent;
 
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -44,13 +48,17 @@ public class NewsFragment extends Fragment {
     private ArrayList<String> kongyan;
     private ArrayList<News> xubin;
     private SwipeRefreshLayout refreshLayout;
+    private SearchView searchView;
+    private ListView listView;
+    private HistoryAdapter historyAdapter;
     private int index = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-//        refreshLayout = root.findViewById(R.id.refresh_layout);
+
+
 
         shabi = new GridLayoutManager(getContext(), 2);
         System.out.println(getContext().getClass());
@@ -60,12 +68,8 @@ public class NewsFragment extends Fragment {
         newsList = new NewsList();
 
         kongyan = newsList.getList("'news'", index);
-        xubin = new ArrayList<News>();
-        for (String item:kongyan) {
-            xubin.add(newsList.getNews(item));
-        }
 
-        recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
+        recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
         final RefreshLayout refreshLayout = (RefreshLayout) root.findViewById(R.id.refresh_layout);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -73,11 +77,7 @@ public class NewsFragment extends Fragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 index = 1;
                 kongyan = newsList.getList("'news'", index);
-                ArrayList<News> temp = new ArrayList<News>();
-                for (String item:kongyan) {
-                    temp.add(newsList.getNews(item));
-                }
-                newsAdapter.refreshNews(temp);
+                newsAdapter.refreshNews(kongyan);
                 refreshLayout.finishRefresh(1500);
             }
         });
@@ -86,19 +86,65 @@ public class NewsFragment extends Fragment {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 index++;
                 kongyan = newsList.getList("'news'", index);
-                ArrayList<News> temp = new ArrayList<News>();
-                for (String item:kongyan) {
-                    temp.add(newsList.getNews(item));
-                }
-                newsAdapter.updateNews(temp);
+                newsAdapter.updateNews(kongyan);
                 refreshLayout.finishLoadMore(1500);
             }
         });
 
+        // SearchView
+        searchView = (SearchView) root.findViewById(R.id.search_view);
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("COVID-19");
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                ArrayList<String> result = NewsList.getSearchResult(query);
+                newsAdapter.refreshNews(result);
+                History history = new History(query);
+                history.save();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        setUnderLinetransparent(searchView);
+        searchView.clearFocus();
+
+        // ListView
+        listView = root.findViewById(R.id.history_list);
+        historyAdapter = new HistoryAdapter(getContext(), R.layout.history_item);
+
+        ArrayList<String> temp = new ArrayList<String>();
+
+
+        historyAdapter.add("Java");
+        historyAdapter.add("4.0");
+        historyAdapter.add("100");
+        historyAdapter.add("COVID-19");
+        historyAdapter.notifyDataSetChanged();
+        listView.setAdapter(historyAdapter);
 
         return root;
     }
 
+    private void setUnderLinetransparent(SearchView searchView){
+        try {
+            Class<?> argClass = searchView.getClass();
+            // mSearchPlate是SearchView父布局的名字
+            Field ownField = argClass.getDeclaredField("mSearchPlate");
+            ownField.setAccessible(true);
+            View mView = (View) ownField.get(searchView);
+            mView.setBackgroundColor(Color.TRANSPARENT);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

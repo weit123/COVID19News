@@ -65,17 +65,7 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
         initSdk();
         startAuth();
         Log.e("!!!", "============================================================================================================================\n");
-//        startClientAuth();
-//        startWebAuth();
 
-//        setContentView(R.layout.share_page);
-//        mShareText = findViewById(R.id.share_text_cb);
-//        mShareUrl = findViewById(R.id.share_url_cb);
-//        mShareClientOnly = findViewById(R.id.share_client_only);
-//        mShareClientH5 = findViewById(R.id.share_client_h5);
-//        mCommitBtn = findViewById(R.id.commit);
-
-//        mCommitBtn.setOnClickListener(this);
 
         AuthInfo authInfo = new AuthInfo(this, APP_KY, REDIRECT_URL, SCOPE);
         mWBAPI = WBAPIFactory.createWBAPI(this);

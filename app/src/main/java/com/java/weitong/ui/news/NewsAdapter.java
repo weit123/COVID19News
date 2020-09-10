@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.content.Intent;
 import android.content.Context;
 import com.java.weitong.db.News;
+import com.java.weitong.db.NewsList;
+
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
@@ -28,23 +30,22 @@ import android.support.v7.widget.RecyclerView;
 import org.w3c.dom.Text;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private ArrayList<News> newsArray;
+    private ArrayList<String> newsArray;
     private Context context;
     private View view;
 
-    public NewsAdapter(ArrayList<News> list) {
+    public NewsAdapter(ArrayList<String> list) {
         newsArray = list;
     }
 
-    public void updateNews(ArrayList<News> list) {
+    public void updateNews(ArrayList<String> list) {
         int position = newsArray.size();
         newsArray.addAll(position, list);
         notifyItemInserted(position);
     }
 
-    public void refreshNews(ArrayList<News> list) {
-        newsArray.removeAll(newsArray);
-        newsArray.addAll(list);
+    public void refreshNews(ArrayList<String> list) {
+        newsArray = list;
         notifyDataSetChanged();
     }
 
@@ -65,37 +66,39 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, null, false);
-        Log.d("NewsAdapter", "Fix Layour");
+        Log.d("NewsAdapter", "Fix Layout");
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewholder, int index) {
         final int pos = index;
-        final News curNews = newsArray.get(index);
+        final String curNewsId = newsArray.get(index);
+        final News curNews = NewsList.getNews(curNewsId);
         viewholder.textView.setText(curNews.getTitle());
-        boolean read = curNews.getRead();
-        if (read)
-            viewholder.cardview.setCardBackgroundColor(Color.parseColor("#7f7f7f"));
-        final int info = index;
+
+        boolean read = NewsList.getNews(curNewsId).getRead();
+
+        viewholder.textView.setTextColor(read ? Color.parseColor("#cfcfcf") : Color.parseColor("#000000"));
+
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewholder.textView.setTextColor(Color.parseColor("#cfcfcf"));
+                Log.e( "nima", "FUCK");
                 Intent intent = new Intent(context, NewsLoadActivity.class);
                 intent.putExtra("news", curNews);
-                newsArray.get(pos).readNews();
+                NewsList.readNews(curNewsId);
+                notifyDataSetChanged();
                 context.startActivity(intent);
             }
         } );
 
-        Log.d("NewsAdapter", "Adhere the data" + curNews.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        Log.d("NewsAdapter:", "Get Size: " + newsArray.size());
+//        Log.d("NewsAdapter:", "Get Size: " + newsArray.size());
         return newsArray.size();
     }
 }
