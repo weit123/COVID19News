@@ -101,8 +101,10 @@ public class NewsFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 ArrayList<String> result = NewsList.getSearchResult(query);
                 newsAdapter.refreshNews(result);
-                History history = new History(query);
-                history.save();
+                if (SearchHistory.find(SearchHistory.class, "word = ?", query).size() == 0) {
+                    SearchHistory h = new SearchHistory(query);
+                    h.save();
+                }
                 return false;
             }
 
