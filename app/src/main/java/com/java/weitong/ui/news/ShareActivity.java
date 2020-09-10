@@ -66,26 +66,29 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
 //        startClientAuth();
         startWebAuth();
 
-        setContentView(R.layout.share_page);
-        mShareText = findViewById(R.id.share_text_cb);
-        mShareUrl = findViewById(R.id.share_url_cb);
-        mShareClientOnly = findViewById(R.id.share_client_only);
-        mShareClientH5 = findViewById(R.id.share_client_h5);
-        mCommitBtn = findViewById(R.id.commit);
+//        setContentView(R.layout.share_page);
+//        mShareText = findViewById(R.id.share_text_cb);
+//        mShareUrl = findViewById(R.id.share_url_cb);
+//        mShareClientOnly = findViewById(R.id.share_client_only);
+//        mShareClientH5 = findViewById(R.id.share_client_h5);
+//        mCommitBtn = findViewById(R.id.commit);
 
-        mCommitBtn.setOnClickListener(this);
+//        mCommitBtn.setOnClickListener(this);
 
         AuthInfo authInfo = new AuthInfo(this, APP_KY, REDIRECT_URL, SCOPE);
         mWBAPI = WBAPIFactory.createWBAPI(this);
         mWBAPI.registerApp(this, authInfo);
         mWBAPI.setLoggerEnable(true);
+
+        doWeiboShare();
     }
+
 
     @Override
     public void onClick(View v) {
-        if (v == mCommitBtn) {
-            doWeiboShare();
-        }
+//        if (v == mCommitBtn) {
+//            doWeiboShare();
+//        }
     }
 
     @Override
@@ -102,12 +105,13 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
         String text = "我正在使用微博客户端发博器分享文字。";
 
         // 分享文字
-        if (mShareText.isChecked()) {
+//        if (mShareText.isChecked()) {
             text = "这里设置您要分享的内容！";
             textObject.text = text;
             message.textObject = textObject;
-        }
+//        }
 
+        /*
         // 分享网页
         if (mShareUrl.isChecked()) {
             WebpageObject webObject = new WebpageObject();
@@ -135,8 +139,10 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
             webObject.defaultText = "分享网页";
             message.mediaObject = webObject;
         }
+         */
 
-        mWBAPI.shareMessage(message, mShareClientOnly.isChecked());
+//        mWBAPI.shareMessage(message, mShareClientOnly.isChecked());
+        mWBAPI.shareMessage(message, false);
     }
 
     @Override
