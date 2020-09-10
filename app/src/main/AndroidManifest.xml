@@ -3,7 +3,6 @@
     package="com.java.weitong">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,7 +38,7 @@
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".ui.scholar.ScholarDisplayActivity"
+            android:name=".ui.scholar.ScholarContentActivity"
             android:label="学者信息">
 
         </activity>

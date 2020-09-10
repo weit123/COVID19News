@@ -177,9 +177,9 @@ class EntityFetcher implements Runnable {
                 String rel = tmp.getString("relation");
                 String label = tmp.getString("label");
                 if (forward)
-                    data.relations_text.add(name + "   --" + rel + "->   " + label);
+                    data.relations_text.add(name + "   --" + rel + "-->   " + label);
                 else
-                    data.relations_text.add(name + "   <-" + rel + "--   " + label);
+                    data.relations_text.add(name + "   <--" + rel + "--   " + label);
                 data.relations_name.add(label);
             }
         } catch (Exception e) {

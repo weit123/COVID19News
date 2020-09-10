@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.java.weitong.MainActivity;
 import com.java.weitong.R;
 import com.java.weitong.db.ScholarList;
 
@@ -40,7 +41,7 @@ public class ScholarFragment extends Fragment {
         mViewPager.setAdapter(new ScholarFragmentPagerAdapter(getFragmentManager(), Arrays.asList(title)));
         mytab.setupWithViewPager(mViewPager);
 
-        scholarList = new ScholarList();
+        scholarList = new ScholarList((MainActivity)getActivity());
 
         return root;
     }

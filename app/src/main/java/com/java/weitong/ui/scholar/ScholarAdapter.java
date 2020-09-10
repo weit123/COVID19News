@@ -2,6 +2,8 @@ package com.java.weitong.ui.scholar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.java.weitong.R;
 import com.java.weitong.db.ScholarData;
+import com.java.weitong.db.ScholarFetcher;
 import com.java.weitong.db.ScholarList;
 
 import java.util.ArrayList;
@@ -24,9 +27,11 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHold
     private ArrayList<String> scholarIdList;
     private Context context;
     private View view;
+    private ScholarFetcher.ToActivity toActivity;
 
-    public ScholarAdapter(ArrayList<String> idList) {
+    public ScholarAdapter(ArrayList<String> idList, ScholarFetcher.ToActivity toActivity) {
         this.scholarIdList = idList;
+        this.toActivity = toActivity;
     }
 
     static class ViewHolder3 extends RecyclerView.ViewHolder {
@@ -59,13 +64,15 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ViewHold
         if (viewholder.imageView == null) {
             System.out.println("2333333");
         }
+        Bitmap avatar = toActivity.loadBitMap(scholarData.getAvatarPath());
+        viewholder.imageView.setImageBitmap(avatar);
         viewholder.textView.setText(scholarData.getName());
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ScholarDisplayActivity.class);
-//                intent.putExtra("scholarId", scholarId);
+                Intent intent = new Intent(context, ScholarContentActivity.class);
+                intent.putExtra("scholarId", scholarId);
                 context.startActivity(intent);
             }
         } );

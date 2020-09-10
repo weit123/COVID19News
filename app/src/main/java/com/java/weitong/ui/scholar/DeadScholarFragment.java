@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.java.weitong.MainActivity;
 import com.java.weitong.R;
 import com.java.weitong.db.ScholarList;
 
@@ -30,7 +31,7 @@ public class DeadScholarFragment extends Fragment {
 
         ArrayList<String> deads =  ScholarList.dead;
 
-        scholarAdapter = new ScholarAdapter(deads);
+        scholarAdapter = new ScholarAdapter(deads, (MainActivity)getActivity());
 
         recyclerView.setAdapter(scholarAdapter);
 

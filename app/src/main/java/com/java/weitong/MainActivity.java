@@ -1,18 +1,25 @@
 package com.java.weitong;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import com.java.weitong.db.ScholarFetcher;
 import com.orm.SugarContext;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ScholarFetcher.ToActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,5 +67,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         SugarContext.terminate();
+    }
+
+    public void writeBitMap(Bitmap pic, String name) {
+        try {
+            FileOutputStream fos = this.openFileOutput(name, MODE_PRIVATE);
+            pic.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("saveBitmap", "Store to " + name);
+    }
+
+    public Bitmap loadBitMap(String name) {
+        try {
+            FileInputStream fis = this.openFileInput(name);
+            //获取文件长度
+            int length = fis.available();
+            byte[] buffer = new byte[length];
+            fis.read(buffer);
+            return BitmapFactory.decodeByteArray(buffer, 0, length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
