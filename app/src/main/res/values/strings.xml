@@ -15,6 +15,11 @@
         <item>国际疫情信息</item>
     </string-array>
     <string-array
+        name="scholar_tab_name">
+        <item>高关注学者</item>
+        <item>追忆学者</item>
+    </string-array>
+    <string-array
         name="domestic_region">
         <item>湖北</item><item>北京</item><item>上海</item><item>天津</item><item>重庆</item><item>河北</item>
         <item>山西</item><item>内蒙古</item><item>辽宁</item><item>吉林</item><item>黑龙江</item>

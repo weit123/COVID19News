@@ -60,12 +60,9 @@ public class NewsFragment extends Fragment {
         newsList = new NewsList();
 
         kongyan = newsList.getList("'news'", index);
-        xubin = new ArrayList<News>();
-        for (String item:kongyan) {
-            xubin.add(newsList.getNews(item));
-        }
 
-        recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
+
+        recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
         final RefreshLayout refreshLayout = (RefreshLayout) root.findViewById(R.id.refresh_layout);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -73,11 +70,7 @@ public class NewsFragment extends Fragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 index = 1;
                 kongyan = newsList.getList("'news'", index);
-                ArrayList<News> temp = new ArrayList<News>();
-                for (String item:kongyan) {
-                    temp.add(newsList.getNews(item));
-                }
-                newsAdapter.refreshNews(temp);
+                newsAdapter.refreshNews(kongyan);
                 refreshLayout.finishRefresh(1500);
             }
         });
@@ -86,11 +79,7 @@ public class NewsFragment extends Fragment {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 index++;
                 kongyan = newsList.getList("'news'", index);
-                ArrayList<News> temp = new ArrayList<News>();
-                for (String item:kongyan) {
-                    temp.add(newsList.getNews(item));
-                }
-                newsAdapter.updateNews(temp);
+                newsAdapter.updateNews(kongyan);
                 refreshLayout.finishLoadMore(1500);
             }
         });
