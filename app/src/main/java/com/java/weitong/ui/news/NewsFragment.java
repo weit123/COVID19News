@@ -43,11 +43,12 @@ public class NewsFragment extends Fragment {
     private ArrayList<String> kongyan;
     private ArrayList<News> xubin;
     private SwipeRefreshLayout refreshLayout;
+    private int index = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
 //        refreshLayout = root.findViewById(R.id.refresh_layout);
         shabi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
         System.out.println(getContext().getClass());
@@ -55,7 +56,8 @@ public class NewsFragment extends Fragment {
         recyclerView.setLayoutManager(shabi);
 
         newsList = new NewsList();
-        kongyan = newsList.getList("'news'", 1);
+
+        kongyan = newsList.getList("'news'", index);
         xubin = new ArrayList<News>();
         for (String item:kongyan) {
             xubin.add(newsList.getNews(item));
@@ -67,13 +69,26 @@ public class NewsFragment extends Fragment {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                //mViewModel.getNews(true,10,0x3f3f3f3f,0);
+                index = 1;
+                kongyan = newsList.getList("'news'", index);
+                ArrayList<News> temp = new ArrayList<News>();
+                for (String item:kongyan) {
+                    temp.add(newsList.getNews(item));
+                }
+                newsAdapter.refreshNews(temp);
                 refreshLayout.finishRefresh(1500);
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                index++;
+                kongyan = newsList.getList("'news'", index);
+                ArrayList<News> temp = new ArrayList<News>();
+                for (String item:kongyan) {
+                    temp.add(newsList.getNews(item));
+                }
+                newsAdapter.updateNews(temp);
                 refreshLayout.finishLoadMore(1500);
             }
         });

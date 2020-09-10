@@ -35,6 +35,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         newsArray = list;
     }
 
+    public void updateNews(ArrayList<News> list) {
+        int position = newsArray.size();
+        newsArray.addAll(position, list);
+        notifyItemInserted(position);
+    }
+
+    public void refreshNews(ArrayList<News> list) {
+        newsArray.removeAll(newsArray);
+        newsArray.addAll(list);
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         CardView cardview;
