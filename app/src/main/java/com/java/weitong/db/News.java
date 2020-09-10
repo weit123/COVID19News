@@ -101,5 +101,6 @@ public class News extends SugarRecord implements Serializable {
 
     public void readNews() {
         this.read = true;
+        save();
     }
 }
