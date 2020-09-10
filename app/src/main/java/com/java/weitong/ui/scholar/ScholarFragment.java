@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,13 @@ class ScholarFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
     public ScholarFragmentPagerAdapter(FragmentManager fm, List<String> title) {
         super(fm);
+
         this.title = title;
     }
 
     @Override
     public Fragment getItem(int position) {
+        Log.e("lqq", "xxbb");
         if (position == 1) {
             return new DeadScholarFragment();
         }
