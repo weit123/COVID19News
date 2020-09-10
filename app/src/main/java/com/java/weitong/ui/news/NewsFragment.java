@@ -6,6 +6,7 @@ import com.java.weitong.db.*;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,7 +51,8 @@ public class NewsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
 //        refreshLayout = root.findViewById(R.id.refresh_layout);
-        shabi = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+
+        shabi = new GridLayoutManager(getContext(), 2);
         System.out.println(getContext().getClass());
 
         recyclerView.setLayoutManager(shabi);

@@ -3,6 +3,7 @@ package com.java.weitong.ui.news;
 import com.java.weitong.MainActivity;
 import com.java.weitong.R;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -69,16 +70,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewholder, int index) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewholder, int index) {
+        final int pos = index;
         final News curNews = newsArray.get(index);
         viewholder.textView.setText(curNews.getTitle());
+        boolean read = curNews.getRead();
+        if (read)
+            viewholder.cardview.setCardBackgroundColor(Color.parseColor("#7f7f7f"));
         final int info = index;
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                viewholder.textView.setTextColor(Color.parseColor("#cfcfcf"));
                 Intent intent = new Intent(context, NewsLoadActivity.class);
                 intent.putExtra("news", curNews);
+                newsArray.get(pos).readNews();
                 context.startActivity(intent);
             }
         } );
