@@ -75,23 +75,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final int pos = index;
         final String curNewsId = newsArray.get(index);
         final News curNews = NewsList.getNews(curNewsId);
-        viewholder.textView.setText(index + " " + curNewsId + " " + curNews.getTitle());
-        NewsList.readNews(curNewsId);
+        viewholder.textView.setText(curNews.getTitle());
+
         boolean read = NewsList.getNews(curNewsId).getRead();
 
-        if (read)
-            viewholder.textView.setTextColor(Color.parseColor("#ff0000"));
+        viewholder.textView.setTextColor(read ? Color.parseColor("#cfcfcf") : Color.parseColor("#000000"));
 
         context = view.getContext();
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e( "nima", "FUCK");
-                viewholder.textView.setTextColor(Color.parseColor("#00ff00"));
                 Intent intent = new Intent(context, NewsLoadActivity.class);
                 intent.putExtra("news", curNews);
                 NewsList.readNews(curNewsId);
-
+                notifyDataSetChanged();
                 context.startActivity(intent);
             }
         } );
