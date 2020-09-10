@@ -29,6 +29,8 @@ import com.java.weitong.R;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class NewsFragment extends Fragment {
 
@@ -57,7 +59,18 @@ public class NewsFragment extends Fragment {
         }
 
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(xubin));
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+            @Override
+            public void onLoadMore() {
+                newsAdapter.setLoadState(newsAdapter.LOADING);
 
+                kongyan = newsList.getList("'news'", 1);
+                for (String item : kongyan) {
+                    xubin.add(newsList.getNews(item));
+                }
+                newsAdapter.setLoadState(newsAdapter.LOADING_COMPLETE);
+            }
+        });
         return root;
     }
 

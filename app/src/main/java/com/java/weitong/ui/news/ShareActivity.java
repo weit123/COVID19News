@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -63,8 +64,9 @@ public class ShareActivity extends Activity implements View.OnClickListener, WbS
         super.onCreate(savedInstanceState);
         initSdk();
         startAuth();
+        Log.e("!!!", "============================================================================================================================\n");
 //        startClientAuth();
-        startWebAuth();
+//        startWebAuth();
 
 //        setContentView(R.layout.share_page);
 //        mShareText = findViewById(R.id.share_text_cb);
