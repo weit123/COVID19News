@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.java.weitong.R;
+import com.java.weitong.db.History;
 import com.java.weitong.db.News;
 import com.java.weitong.db.NewsList;
 import com.java.weitong.ui.news.NewsAdapter;
@@ -50,15 +51,32 @@ public class GraphFragment extends Fragment implements ToGraphFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_graph, container, false);
+        final View root = inflater.inflate(R.layout.fragment_graph, container, false);
 
         entity_name = root.findViewById(R.id.entity_name);
         entity_image = root.findViewById(R.id.entity_image);
         entity_info = root.findViewById(R.id.entity_info);
-        searchView = root.findViewById(R.id.graph_search);
         prop = new ArrayList<>();
         rel_name = new ArrayList<>();
         rel_text = new ArrayList<>();
+
+        searchView = (android.support.v7.widget.SearchView) root.findViewById(R.id.graph_search);
+        searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint("请输入要搜索的实体...");
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new android.support.v7.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                setEntity(root, query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.clearFocus();
 
         final RecyclerView property_recycler = root.findViewById(R.id.property_recycler);
         pp = new LinearLayoutManager(getContext());
@@ -94,6 +112,10 @@ public class GraphFragment extends Fragment implements ToGraphFragment {
         prop.addAll(d.properties);
         rel_text.addAll(d.relations_text);
         rel_name.addAll(d.relations_name);
+        if (propertyAdapter != null)
+            propertyAdapter.notifyDataSetChanged();
+        if (relationAdapter != null)
+            relationAdapter.notifyDataSetChanged();
     }
 }
 
