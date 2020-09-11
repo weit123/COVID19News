@@ -38,6 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_description"
                     android:textSize="18sp"
+                    android:lineSpacingExtra="3dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"/>
             </LinearLayout>
@@ -49,4 +50,13 @@
             android:layout_gravity="center"
             android:fontFamily="serif"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="@string/preload_notice"
+        android:textColor="@color/colorGrey"/>
 </RelativeLayout>
