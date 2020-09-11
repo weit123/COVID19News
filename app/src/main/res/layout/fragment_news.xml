@@ -33,6 +33,7 @@
                     android:id="@+id/search_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:iconifiedByDefault="false"
                     app:queryHint="请输入搜索内容">
                     <ListView
@@ -97,7 +98,7 @@
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="20dp">
         </android.support.v7.widget.RecyclerView>
         <com.scwang.smart.refresh.footer.BallPulseFooter
             android:id="@+id/foot"
