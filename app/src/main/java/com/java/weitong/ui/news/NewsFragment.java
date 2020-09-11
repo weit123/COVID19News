@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -93,6 +94,8 @@ public class NewsFragment extends Fragment {
             }
         });
 
+        historyAdapter = new HistoryAdapter(getContext(), R.layout.history_item);
+
         // SearchView
         searchView = (SearchView) root.findViewById(R.id.search_view);
         searchView.setIconifiedByDefault(false);
@@ -106,6 +109,8 @@ public class NewsFragment extends Fragment {
                 if (SearchHistory.find(SearchHistory.class, "word = ?", query).size() == 0) {
                     SearchHistory h = new SearchHistory(query);
                     h.save();
+                    historyAdapter.add(query);
+                    historyAdapter.notifyDataSetChanged();
                 }
                 return false;
             }
@@ -115,20 +120,35 @@ public class NewsFragment extends Fragment {
                 return false;
             }
         });
+
+        searchView.setOnQueryTextFocusChangeListener(new SearchView.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+//                SearchHistory.clearAllHistory();
+            }
+        });
         setUnderLinetransparent(searchView);
         searchView.clearFocus();
 
+        historyAdapter.setOnHistoryItemClickListener(new HistoryAdapter.OnHistoryItemClickListener() {
+            @Override
+            public void onHistoryItemClick(String word) {
+                Log.e("Word", word);
+                searchView.setQuery(word, true);
+            }
+        });
+
+        List<SearchHistory> historyList = SearchHistory.listAll(SearchHistory.class);
+        for(SearchHistory item : historyList) {
+            historyAdapter.add(item.getWord());
+        }
+
         // ListView
         listView = root.findViewById(R.id.history_list);
-        historyAdapter = new HistoryAdapter(getContext(), R.layout.history_item);
+
 
         ArrayList<String> temp = new ArrayList<String>();
 
-
-        historyAdapter.add("Java");
-        historyAdapter.add("4.0");
-        historyAdapter.add("100");
-        historyAdapter.add("COVID-19");
         historyAdapter.notifyDataSetChanged();
         listView.setAdapter(historyAdapter);
 
