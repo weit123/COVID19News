@@ -112,7 +112,7 @@ public class NewsLoadActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ShareActivity.class);
             intent.putExtra("text", newsTitle.getText() + "\n" + newsContent.getText());
             startActivity(intent);
-        } else if (item.getItemId() == R.id.menu4) {
+//        } else if (item.getItemId() == R.id.menu4) {
             // refresh
         }
         return super.onOptionsItemSelected(item);

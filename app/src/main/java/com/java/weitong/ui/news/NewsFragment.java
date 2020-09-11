@@ -72,6 +72,8 @@ public class NewsFragment extends Fragment {
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
         final RefreshLayout refreshLayout = (RefreshLayout) root.findViewById(R.id.refresh_layout);
+        refreshLayout.setPrimaryColorsId(R.color.TsinghuaPurple, android.R.color.white);
+        refreshLayout.setDragRate(0.5f);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {

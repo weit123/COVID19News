@@ -10,11 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".StartupActivity"
-            android:label="startup">
+            android:label="CoKnow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".ui.news.NewsLoadActivity"
-            android:label="加载新闻">
+            android:label="新闻详情">
         </activity>
         <activity
             android:name=".ui.data.DataDisplayActivity"

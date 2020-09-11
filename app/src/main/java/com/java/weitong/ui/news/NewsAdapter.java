@@ -75,7 +75,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         final int pos = index;
         final String curNewsId = newsArray.get(index);
         final News curNews = NewsList.getNews(curNewsId);
-        viewholder.textView.setText(curNews.getTitle());
+        String title = curNews.getTitle();
+        String regex3 = ".*[\\u4e00-\\u9fa5].*";
+        boolean hasChinese = title.matches(regex3);
+        if (hasChinese && title.length() > 32) {
+            title = title.substring(0, 32) + "...";
+        }
+        if (!hasChinese && title.length() > 60) {
+            title = title.substring(0, 60) + "...";
+        }
+        viewholder.textView.setText(title);
 
         boolean read = NewsList.getNews(curNewsId).getRead();
 

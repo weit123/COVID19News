@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:text="entity_name"
             android:textStyle="bold"
+            android:textColor="@color/TsinghuaPurple"
             android:textSize="30dp"
             android:padding="10dp"/>
         <ImageView

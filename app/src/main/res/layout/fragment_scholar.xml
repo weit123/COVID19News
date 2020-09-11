@@ -12,7 +12,10 @@
         android:id="@+id/scholar_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="1dp"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         android:layout_marginBottom="50dp">
     </android.support.v7.widget.RecyclerView>
 
