@@ -33,9 +33,9 @@ public class CustomChannelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_news);
+        setContentView(R.layout.activity_channel_view);
 
-        channelView = findViewById(R.id.channel_view);
+//        channelView = findViewById(R.id.channel_view);
         init();
     }
 

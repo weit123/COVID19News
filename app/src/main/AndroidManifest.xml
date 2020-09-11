@@ -42,7 +42,15 @@
             android:label="学者信息">
 
         </activity>
+        <activity android:name=".ui.news.ChannelMainActicity">
 
+        </activity>
+        <activity android:name=".ui.news.ChannelViewActivity">
+
+        </activity>
+        <activity android:name=".ui.news.CustomChannelActivity">
+
+        </activity>
         <meta-data android:name="DATABASE" android:value="covid19_news.db" />
         <meta-data android:name="VERSION" android:value="2" />
         <meta-data android:name="QUERY_LOG" android:value="true" />

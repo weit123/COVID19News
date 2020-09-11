@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment implements updateHelper {
 
     private NewsAdapter newsAdapter;
     private LinearLayoutManager shabi;
@@ -52,6 +53,7 @@ public class NewsFragment extends Fragment {
     private SearchView searchView;
     private ListView listView;
     private HistoryAdapter historyAdapter;
+    private Button channelButton;
     private int index = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,6 +61,15 @@ public class NewsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_news, container, false);
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
 
+        ChannelViewActivity.fragment = this;
+        channelButton = root.findViewById(R.id.channel_button);
+        channelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getContext(), ChannelViewActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         shabi = new GridLayoutManager(getContext(), 2);
@@ -68,7 +79,7 @@ public class NewsFragment extends Fragment {
 
         newsList = new NewsList();
 
-        kongyan = newsList.getList("'news'", index);
+        kongyan = newsList.getList("all", index);
 
         recyclerView.setAdapter(newsAdapter = new NewsAdapter(kongyan));
 
@@ -79,7 +90,7 @@ public class NewsFragment extends Fragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 index = 1;
-                kongyan = newsList.getList("'news'", index);
+                kongyan = newsList.getList("all", index);
                 newsAdapter.refreshNews(kongyan);
                 refreshLayout.finishRefresh(1500);
             }
@@ -88,7 +99,7 @@ public class NewsFragment extends Fragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 index++;
-                kongyan = newsList.getList("'news'", index);
+                kongyan = newsList.getList("all", index);
                 newsAdapter.updateNews(kongyan);
                 refreshLayout.finishLoadMore(1500);
             }
@@ -168,6 +179,19 @@ public class NewsFragment extends Fragment {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateNews(ArrayList<String> types) {
+        kongyan.clear();
+        String key = "";
+        for (String type : types) {
+            if (type.equals("新闻"))
+                key = "news";
+            else if (type.equals("论文"))
+                key = "paper";
+            kongyan.addAll(newsList.getList(type, 1));
+        }
+        newsAdapter.refreshNews(kongyan);
     }
 }
 
