@@ -41,7 +41,7 @@ public class ScholarFragment extends Fragment {
         mViewPager.setAdapter(new ScholarFragmentPagerAdapter(getFragmentManager(), Arrays.asList(title)));
         mytab.setupWithViewPager(mViewPager);
 
-        scholarList = new ScholarList((MainActivity)getActivity());
+//        scholarList = new ScholarList((MainActivity)getActivity());
 
         return root;
     }

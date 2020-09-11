@@ -21,6 +21,8 @@ import java.util.List;
 public class ScholarList {
     public static ArrayList<String> alive;
     public static ArrayList<String> dead;
+//    private ScholarFetcher.ToActivity activity;
+    /*
     public ScholarList(ScholarFetcher.ToActivity activity) {
         alive = new ArrayList<>();
         dead = new ArrayList<>();
@@ -35,6 +37,20 @@ public class ScholarList {
         Log.e("alive", alive.toString());
         Log.e("dead", dead.toString());
     }
+     */
+
+    public ScholarList() {
+        alive = new ArrayList<>();
+        dead = new ArrayList<>();
+    }
+
+    /*
+    private void initData() {
+        ScholarFetcher fetcher = new ScholarFetcher(alive, dead, activity);
+        Thread t = new Thread(fetcher);
+        t.start();
+    }
+     */
 
     public static ScholarData getScholar(String id) {
         List<ScholarData> scho = ScholarData.find(ScholarData.class, "_id = ?", id);
