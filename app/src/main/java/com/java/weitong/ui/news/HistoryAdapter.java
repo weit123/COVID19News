@@ -9,9 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.java.weitong.R;
+import com.java.weitong.db.SearchHistory;
 
 import org.w3c.dom.Text;
 
@@ -42,7 +44,7 @@ public class HistoryAdapter extends ArrayAdapter<String> {
             historyViewHolder = new HistoryViewHolder();
             historyViewHolder.linearLayout = view.findViewById(R.id.history_layout);
             historyViewHolder.textView = view.findViewById(R.id.history_word);
-            historyViewHolder.action = view.findViewById(R.id.history_action);
+            historyViewHolder.clear = view.findViewById(R.id.history_clear);
             view.setTag(historyViewHolder);
         } else {
             view = converterView;
@@ -50,18 +52,43 @@ public class HistoryAdapter extends ArrayAdapter<String> {
         }
 
         historyViewHolder.textView.setText(word);
-        historyViewHolder.action.setOnClickListener(new View.OnClickListener() {
+        historyViewHolder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onItemClick(word);
+            }
+        });
+        historyViewHolder.clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchHistory.removeItem(word);
                 remove(word);
+                notifyDataSetChanged();
             }
         });
         return view;
     }
+
+    public interface OnHistoryItemClickListener {
+        public void onHistoryItemClick(String word);
+    }
+
+    OnHistoryItemClickListener itemClickListener;
+
+    public void setOnHistoryItemClickListener(OnHistoryItemClickListener listener) {
+        itemClickListener = listener;
+    }
+
+    private void onItemClick(String word) {
+        if (itemClickListener != null) {
+            itemClickListener.onHistoryItemClick(word);
+        }
+    }
+
 }
 
 class HistoryViewHolder {
     LinearLayout linearLayout;
     TextView textView;
-    TextView action;
+    TextView clear;
 }
