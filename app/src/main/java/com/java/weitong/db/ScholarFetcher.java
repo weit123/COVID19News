@@ -16,7 +16,7 @@ public class ScholarFetcher implements Runnable {
     private ArrayList<String> dead;
     private ToActivity toActivity;
 
-    ScholarFetcher(ArrayList<String> alive, ArrayList<String> dead, ToActivity toActivity) {
+    public ScholarFetcher(ArrayList<String> alive, ArrayList<String> dead, ToActivity toActivity) {
         this.alive = alive;
         this.dead = dead;
         this.toActivity = toActivity;

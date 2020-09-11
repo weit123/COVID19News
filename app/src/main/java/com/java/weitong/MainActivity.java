@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ScholarFetcher.To
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        SugarContext.init(this);
+//        SugarContext.init(this);
     }
 
     @Override
