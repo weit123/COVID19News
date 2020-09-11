@@ -2,6 +2,7 @@
     <string name="app_name">CoKnow</string>
     <string name="app_label">我好菜啊</string>
     <string name="app_description">新冠疫情信息\n综合平台</string>
+    <string name="preload_notice">第一次安装时会进行预加载，请耐心等待…</string>
     <string name="authors">Provided by Tong Wei and Andrew Feng</string>
     <string name="title_news">COVID19News - 新闻</string>
     <string name="title_data">COVID19News - 数据</string>
