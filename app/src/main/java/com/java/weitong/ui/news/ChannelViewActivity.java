@@ -8,6 +8,7 @@ import com.cheng.channel.Channel;
 import com.cheng.channel.ChannelView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.java.weitong.R;
@@ -27,7 +28,7 @@ public class ChannelViewActivity extends AppCompatActivity implements ChannelVie
     }
 
     private void init() {
-        String[] myChannel = {"新闻", "论文"};
+        String[] myChannel = {"新闻", "论文", "研究热点", "抗疫措施", "生物化学研究", "药物研究", "抗疫研究", "抗疫追踪"};
         String[] otherChannel = {};
 
         List<Channel> myChannelList = new ArrayList<>();
@@ -40,8 +41,8 @@ public class ChannelViewActivity extends AppCompatActivity implements ChannelVie
         }
 
         channelView.setChannelFixedCount(0);
-        channelView.addPlate("我的频道", myChannelList);
-        channelView.addPlate("其他频道", otherChannelList);
+        channelView.addPlate("选择分类", myChannelList);
+        channelView.addPlate("其他分类", otherChannelList);
         channelView.inflateData();
         channelView.setChannelNormalBackground(R.drawable.bg_channel_normal);
         channelView.setChannelEditBackground(R.drawable.bg_channel_edit);

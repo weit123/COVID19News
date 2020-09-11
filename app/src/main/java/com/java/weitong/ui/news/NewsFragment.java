@@ -38,6 +38,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -185,11 +186,33 @@ public class NewsFragment extends Fragment implements updateHelper {
         kongyan.clear();
         String key = "";
         for (String type : types) {
-            if (type.equals("新闻"))
+            if (type.equals("新闻")) {
                 key = "news";
-            else if (type.equals("论文"))
+                kongyan.addAll(newsList.getList(key, 1));
+            }
+            else if (type.equals("论文")) {
                 key = "paper";
-            kongyan.addAll(newsList.getList(key, 1));
+                kongyan.addAll(newsList.getList(key, 1));
+            }
+            else if (type.equals("研究热点")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_redian)));
+            }
+            else if (type.equals("抗疫措施")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_cuoshi)));
+            }
+            else if (type.equals("生物化学研究")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_shenghua)));
+            }
+            else if (type.equals("药物研究")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_yaowu)));
+            }
+            else if (type.equals("抗疫研究")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_yanjiu)));
+            }
+            else if (type.equals("抗疫追踪")) {
+                kongyan.addAll(Arrays.asList(getResources().getStringArray(R.array.julei_zhuizong)));
+            }
+            Log.d("!!!", kongyan.toString());
         }
         newsAdapter.refreshNews(kongyan);
     }

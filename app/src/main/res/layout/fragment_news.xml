@@ -49,8 +49,10 @@
                         android:id="@+id/channel_button"
                         android:layout_width="43dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:drawableRight="@drawable/ic_home">
+                        android:layout_gravity="end|center"
+                        android:drawableRight="@drawable/ic_menu"
+                        android:background="@drawable/bg_channel_transparent"
+                        android:layout_marginEnd="10dp">
 
                     </Button>
                 </FrameLayout>

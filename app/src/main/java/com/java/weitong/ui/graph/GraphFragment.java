@@ -109,7 +109,8 @@ public class GraphFragment extends Fragment implements ToGraphFragment {
         entity_name.setText(d.name);
         entity_image.setImageBitmap(d.pic);
         entity_info.setText(d.info);
-        prop.addAll(d.properties);
+        if (d.properties != null)
+            prop.addAll(d.properties);
         rel_text.addAll(d.relations_text);
         rel_name.addAll(d.relations_name);
         if (propertyAdapter != null)

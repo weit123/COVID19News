@@ -94,7 +94,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         viewholder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e( "nima", "FUCK");
                 Intent intent = new Intent(context, NewsLoadActivity.class);
                 intent.putExtra("news", curNews);
                 NewsList.readNews(curNewsId);

@@ -106,6 +106,7 @@ class NewsFetcher implements Runnable {
 
     private void parseJson(JSONObject obj) {
         try {
+            Log.e("parse", obj.toString());
             String id = obj.getString("_id");
             String content = obj.getString("content");
             String time = obj.getString("time");
@@ -129,6 +130,9 @@ class NewsFetcher implements Runnable {
                     authors = authors + " " + tmp.getJSONObject(j).getString("name");
                 news = new News(type, id, null, url, time, title, content, seg,
                         pdf, authors, doi, year);
+            }
+            else {
+                news = new News(type, id, null, null, time, title, null, null, null, null, null, null);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -156,6 +160,7 @@ class NewsFetcher implements Runnable {
                     result.append(line);
                 }
                 JSONObject res = new JSONObject(result.toString());
+                res = res.getJSONObject("data");
                 parseJson(res);
                 NewsFetcher.class.notify();
             } catch (Exception e) {
@@ -181,7 +186,7 @@ public class NewsList {
     public static News getNews(String id) {
         List<News> tmp = News.find(News.class, "_id = ?", id);
         if (tmp.size() != 0) {
-//            Log.e("findnews", "Found!");
+            Log.e("findnews", "Found!");
             return tmp.get(0);
         }
         NewsFetcher fetcher = new NewsFetcher(id);
