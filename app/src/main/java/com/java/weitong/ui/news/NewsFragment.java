@@ -189,7 +189,7 @@ public class NewsFragment extends Fragment implements updateHelper {
                 key = "news";
             else if (type.equals("论文"))
                 key = "paper";
-            kongyan.addAll(newsList.getList(type, 1));
+            kongyan.addAll(newsList.getList(key, 1));
         }
         newsAdapter.refreshNews(kongyan);
     }

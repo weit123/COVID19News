@@ -54,9 +54,28 @@ public class NewsLoadActivity extends AppCompatActivity {
         Intent intent = getIntent();
         News curNews = (News)intent.getSerializableExtra("news");
         newsTitle.setText(curNews.getTitle());
-        newsContent.setText(curNews.getContent());
+//        newsContent.setText(curNews.getContent());
         newsDate.setText(curNews.getTime());
-        newsSource.setText(curNews.getSource());
+//        newsSource.setText(curNews.getSource());
+
+        String c = "";
+        if (curNews.getType().equals("news")) {
+            c = curNews.getContent();
+        }
+        else if (curNews.getType().equals("paper")) {
+            c = curNews.getContent() + "\n doi: " + curNews.getDoi() + "\n Keywords: "
+                    + curNews.getKeywords() + "\n pdf: " + curNews.getPdf();
+        }
+        newsContent.setText(c);
+
+        String s = "";
+        if (curNews.getType().equals("news")) {
+            s = curNews.getSource();
+        }
+        else if (curNews.getType().equals("paper")) {
+            s = curNews.getAuthors();
+        }
+        newsSource.setText(s);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
