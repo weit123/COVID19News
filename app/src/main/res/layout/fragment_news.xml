@@ -36,11 +36,6 @@
                     android:layout_marginTop="10dp"
                     app:iconifiedByDefault="false"
                     app:queryHint="请输入搜索内容">
-                    <ListView
-                        android:id="@+id/mylist"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
                 </android.support.v7.widget.SearchView>
                 <ListView
                     android:id="@+id/history_list"
@@ -50,25 +45,12 @@
                     android:layout_marginRight="40dp">
                 </ListView>
             </LinearLayout>
-            <android.support.v7.widget.SearchView
-                android:id="@+id/search_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:iconifiedByDefault="false"
-                app:queryHint="请输入搜索内容">
-                <ListView
-                    android:id="@+id/mylist"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-            </android.support.v7.widget.SearchView>
-            <ListView
-                android:id="@+id/history_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.cheng.channel.ChannelView
+            android:id="@+id/channel_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            </ListView>
+        </com.cheng.channel.ChannelView>
 
         </LinearLayout>
 <!--        <android.support.v7.widget.Toolbar-->
